@@ -1,0 +1,14 @@
+<template name="AddExpense">
+  {{> NewExpense }}
+  
+  <section class="expenses">
+    {{#if Template.subscriptionsReady}}
+      {{#each expenses}}
+        {{> SingleExpense }}
+      {{/each}}
+    {{else}}
+    <p>Loading...</p>
+    {{/if}}
+  </section>
+  
+</template>
