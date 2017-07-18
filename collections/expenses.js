@@ -47,11 +47,30 @@ ExpenseSchema = new SimpleSchema({
     autoValue: function () {
       return new Date();
     },
-        autoform: { type:"hidden" }
+    autoform: { type:"hidden" }
+  },
+  lastUpdatedAt: {
+    type: Date,
+    label: 'Last Updated At',
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: { type:"hidden" }
   }
 });
 
 Meteor.methods({
+  'expenses.update'(_id, name, sum, tag) {
+    const expense = Expenses.findOne(_id);
+    let res = Expenses.update(_id, { $set: { name: name, sum: sum, tag: tag } });
+    return res
+  },
+  
+  'expenses.remove'(_id) {
+
+    const expense = Expenses.findOne(_id);
+      Expenses.remove(_id);
+  },
   
 })
 
