@@ -4,12 +4,19 @@
       <input name="name" value={{name}} />
       <input name="sum" value={{sum}} />
       <input name="tag" value={{tag}} />
+      <button class="btn delete-expense">&#x274C;</button>
     </form>
-    <button class="delete-expense">&#x274C;</button>
+    
+<!--
     <div>
-      <span>{{humanizeDate createdAt}}</span>
-      <!-- <span>{{humanizeAuthor author}}</span> -->
-      <span>{{ author }}</span>
+      <input name="ass" value="{{ createdAt}}" />
     </div>
+-->
+    
+    <div>  
+      Added by <span>{{ humanizeAuthor author }}</span>
+      <span>{{humanizeDate createdAt}}</span> 
+    </div>
+    
   </div>
 </template>

@@ -8,10 +8,10 @@ Template.SingleExpense.helpers({
       return humanizedDate
   },
   
-//  humanizeAuthor: function (_id) {
-//    let user = Users.find({_id: _id})
-//    return user.emails[address]
-//  }
+  humanizeAuthor: function (_id) {
+    let mail = Meteor.user().emails[0].address;
+    return mail.slice(0, mail.indexOf(mail.match('@')))
+  }
 })
 
 Template.SingleExpense.events({
@@ -19,16 +19,18 @@ Template.SingleExpense.events({
     event.preventDefault();
     let unchangedDoc = Expenses.findOne(this._id);
     
-    
     const target = event.target.parentNode.children;
     let changedDoc = {
       name: target.name.value,
       sum: parseFloat(target.sum.value.replace(',','.')),
-      tag: target.tag.value
+      tag: target.tag.value,
+      createdAt: target.ass.value
     }
     
+    console.log(' singleExpense.js reporting ' + changedDoc.createdAt)
+    
     if (checkChanges(changedDoc, unchangedDoc)) {
-      Meteor.call('expenses.update', this._id, changedDoc.name, changedDoc.sum, changedDoc.tag,
+      Meteor.call('expenses.update', this._id, changedDoc.name, changedDoc.sum, changedDoc.tag, changedDoc.createdAt,
         function (error, result) {
           if (error) console.log(error.message)
       })
@@ -39,6 +41,7 @@ Template.SingleExpense.events({
     Meteor.call('expenses.remove', this._id);
   }
   
+  // TO DO edit dates
 });
 
 function checkChanges (obj1, obj2) {

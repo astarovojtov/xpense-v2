@@ -1,4 +1,5 @@
 Expenses = new Mongo.Collection('expenses');
+SimpleSchema.debug = true;
 
 Expenses.allow({
   insert: function (userId, doc) {
@@ -44,18 +45,16 @@ ExpenseSchema = new SimpleSchema({
   createdAt: {
     type: Date,
     label: 'Created At',
-    autoValue: function () {
-      return new Date();
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date();
+//      } else if (this.isUpsert) {
+//        return {$setOnInsert: new Date()};
+//      } else {
+//        this.unset();  // Prevent user from supplying their own value
+      }
     },
-    autoform: { type:"hidden" }
-  },
-  lastUpdatedAt: {
-    type: Date,
-    label: 'Last Updated At',
-    autoValue: function () {
-      return new Date();
-    },
-    autoform: { type:"hidden" }
+    autoform: { type:"hidden" },
   }
 });
 

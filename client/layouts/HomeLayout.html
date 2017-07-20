@@ -1,11 +1,12 @@
 <template name="HomeLayout">
-  <header>
-    <h1>XPense v2</h1>
-    {{> loginButtons}}
-  </header>
-  <main>
-    <div class="billboard">
-      <h2>Weee</h2>
-    </div>
-  </main>
+  {{> Header }}
+  {{> SideNav }}
+  <div class="row">
+
+    <main class="col s12 m10 l10 offset-m1 offset-l1">
+      Weee
+    </main>
+  </div>
+  {{> Footer }}
 </template>
+          

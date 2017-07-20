@@ -1,24 +1,49 @@
 <template name="SideNav">
-  <nav class="side-nav">
-    <ul>
+
+    <ul id="slide-out" class="side-nav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="http://sites.psu.edu/delperciofictionblog/wp-content/uploads/sites/23605/2015/03/Sea2-300x200.jpg">
+          </div>
+          <a href="#!user">
+            <img class="circle" src="https://70mmtollywood.com/wp-content/uploads/2016/12/scrooge-mcduck_197x282-150x150.jpg">
+          </a>
+          <a href="#!name" class="name">John Doe</a>
+          <a href="#!email" class="email">jdandturk@gmail.com</a>
+      </div>
+      </li>
+      
       <li>
         <a href="/">
-          <i class="fa fa-home"></i>
+          <i class="small material-icons">home</i>
           Home
         </a>
       </li>
       <li>
         <a href="/list">
-          <i class="fa fa-list"></i>
+          <i class="small material-icons">list</i>
           List
         </a>
       </li>
       <li>
         <a href="/analytics">
-          <i class="fa fa-pie-chart"></i>
+          <i class="small material-icons">show_chart</i>
           Analytics
         </a>
       </li>
     </ul>
-  </nav>
+
+  <script>
+    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav({
+      menuWidth: 300,
+      edge: 'left',
+      closeOnClick: true,
+      draggable: true,
+      onOpen: function(el) { },
+      onClose: function(el) { }
+    }
+  );
+  </script>
 </template>

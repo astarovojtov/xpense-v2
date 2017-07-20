@@ -1,7 +1,10 @@
 <template name="MainLayout">
   {{> Header }}
   {{> SideNav }}
-  <main class="main-layout">
-    {{> Template.dynamic template=main }}
-  </main>
+  <div class="row">
+   <main class="col s12 m10 l10 offset-m1 offset-l1">
+      {{> Template.dynamic template=main }}
+    </main>
+  </div>
+  {{> Footer }}
 </template>
