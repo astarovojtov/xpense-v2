@@ -5,16 +5,11 @@ Template.AddExpense.onCreated(function () {
   })
 });
 
-let transformer = function( doc ) {
-  console.log(doc)
-  return doc
-}
-
 Template.AddExpense.helpers({
   expenses: () => { 
     let expensesList = Expenses.find({}, { sort: {createdAt: -1}, limit: 3 })
       expensesList.forEach( (item) => {
-        item.createdAt = '123'
+//        item.createdAt = '123'
     } )
     return expensesList
   }

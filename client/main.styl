@@ -1,11 +1,18 @@
 body
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+main
+  flex: 1 0 auto;
 header
   h1
     font-size: 1rem
     font-weight: 400
     padding-left: 2rem
     margin: 1.4rem auto
+    
+
 #side-nav-button
   padding: 0 1.5rem
   line-height: 2
@@ -43,34 +50,105 @@ div
     text-align: right
     
 .expenses
-  margin: 2rem 0
+  margin: 0
   div 
-    font-size: 0.9rem
+    font-size: 0.8rem
     text-align: right
+    color: grey
+    padding-right: 10%
   .update-expense
     margin: 0 auto
     text-align: center
+    display: inline-block
+    width:90%
     input
       margin-right: 1rem
       height: 2rem
       margin: 0 0 10px 0
-      width: 30%
+      width: 35%
       font-size: 1rem
-      border-bottom: 1px solid #eeeeee
+      border-bottom: 1px solid white
     [name="sum"]
       width:10%
-.new-expense-container
-  margin: 15%
-
+  form.update-expense
+    input[name="name"].update,
+    input[name="sum"].update,
+    input[name="text"].update,
+    input[name="tag"].update
+      &:focus 
+        border-bottom: 1px solid blue
+        box-shadow: 0 1px 0 0 blue
+form.update-date-and-author
+  input[name="createdAt"].edit-date,
+  input[name="author"].edit-author
+    font-size: 12px
+    margin-right: 1rem
+    height: 2rem
+    margin: 0 0 10px 0
+    min-width: 10px
+    max-width: 200px
+    border-bottom: 1px solid white
+    &:focus 
+      border-bottom: 1px solid blue
+      box-shadow: 0 1px 0 0 blue
+#search    
+  &:focus 
+    border-bottom: 1px solid blue
+    box-shadow: 0 1px 0 0 blue  
+  &:focus + label
+    color: blue
+.input-field.search
+    i.material-icons
+      color: blue
+    
+.new-expense-container 
+  margin: 10%
+#new-expense-text
+  &:focus
+    border-bottom: 1px solid blue
+    box-shadow: 0 1px 0 0 blue
+  &:focus + label
+    color: blue
+.add-expense
+  button
+    background-color: blue
+    &:hover,
+    &:focus
+      background-color: cornflowerblue
+      
 .btn.delete-expense
   height: initial 
   line-height: initial
-  padding: 1px 5px;
+  padding: 1px 5px
   background: none
+  border-radius: 12px
   box-shadow: none
   color: #333333
+  height: 24px
   &:hover
-    background: none
+    background-color: firebrick
     box-shadow: none
-    color: firebrick
+    border-radius: 12px
+    color: white
     opacity: 0.8
+    
+.filters
+  margin-bottom: 10px
+  text-align: left
+  div
+    display:inline-block
+    a
+      font-size: 12px
+      text-decoration: none
+      padding: 0 10px;
+      line-height: 24px;
+      height: 24px;
+      background-color: #1565C0 
+      &:hover
+        background-color: #2196F3
+        color: white
+      
+.expenses-list
+  div:nth-child(even)
+    background-color: #e3f2fd
+    border-radius: 5px;

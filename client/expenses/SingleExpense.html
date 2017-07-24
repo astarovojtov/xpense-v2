@@ -1,21 +1,23 @@
 <template name="SingleExpense">
   <div class="expenses">
     <form class="update-expense">
-      <input name="name" value={{name}} />
-      <input name="sum" value={{sum}} />
-      <input name="tag" value={{tag}} />
-      <button class="btn delete-expense">&#x274C;</button>
-    </form>
-    
+      <input class="update" name="name" value={{name}} />
+      <input class="update" name="sum" value={{sum}} />
+      <input class="update" name="tag" value={{tag}} />
+    </form> 
+    <button class="btn delete-expense">&#x274C;</button>
 <!--
     <div>
       <input name="ass" value="{{ createdAt}}" />
     </div>
 -->
     
-    <div>  
-      Added by <span>{{ humanizeAuthor author }}</span>
-      <span>{{humanizeDate createdAt}}</span> 
+    <div>
+      <form class="update-date-and-author">
+        <span>Added by </span>
+        <input class="edit-author resizable" type="text" name="author" value={{ humanizeAuthor author }} />
+        <input class="edit-date resizable" type="text" name="createdAt" value={{ humanizeDate createdAt }} />
+      </form>
     </div>
     
   </div>

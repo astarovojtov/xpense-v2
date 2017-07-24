@@ -59,12 +59,32 @@ ExpenseSchema = new SimpleSchema({
 });
 
 Meteor.methods({
-  'expenses.update'(_id, name, sum, tag) {
-    const expense = Expenses.findOne(_id);
-    let res = Expenses.update(_id, { $set: { name: name, sum: sum, tag: tag } });
-    return res
+  'expenses.add'(text) {
+        
+        let sum = text.match(/\d+(?:[\.,]\d+)?/)[0];
+    
+        let name_tag_arr = text.split(sum);
+        let name = name_tag_arr[0].trim();
+        let tag = name_tag_arr[1].trim();
+        sum = parseFloat(sum.replace(',','.'));
+    
+    Expenses.insert({
+      text, name, sum, tag,
+      author: Meteor.userId(),
+      createdAt: new Date(),
+    })
   },
   
+  'expenses.update'(_id, name, sum, tag, createdAt, author) {
+    const expense = Expenses.findOne(_id);
+    let res = Expenses.update(_id, { $set: { name: name, sum: sum, tag: tag, createdAt: createdAt, author: author } });
+    return res
+  },
+  'expenses.update-date-and-author'(_id, createdAt, author) {
+    const expense = Expenses.findOne(_id);
+    let res = Expenses.update(_id, { $set: { createdAt: createdAt, author: author } });
+    return res
+  },
   'expenses.remove'(_id) {
 
     const expense = Expenses.findOne(_id);
