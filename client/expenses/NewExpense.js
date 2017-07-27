@@ -9,6 +9,4 @@ Template.NewExpense.events({
     
     event.target.text.value = ''
   },
-  
-  
 });
