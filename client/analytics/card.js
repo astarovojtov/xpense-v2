@@ -1,7 +1,7 @@
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.Card.onCreated(function () {
-  this.data = new ReactiveDict();
+  this.state = new ReactiveDict();
   
   var self = this;
   self.autorun( function() {
@@ -12,6 +12,9 @@ Template.Card.onCreated(function () {
 Template.Card.helpers({
   expenses: () => {
     return Expenses.find({}).fetch()
+  },
+  humanizeDate: function (dateTime) {
+    return momentDate(dateTime)
   },
   
   totalSpendings: (data) => {
@@ -73,10 +76,57 @@ Template.Card.helpers({
       }
     }
     return result
+  },
+  
+  tagsList: (data) => {
+    
+    let tagsArray = []
+    data.forEach( (x) => tagsArray.push(x.tag) )
+    
+    return tagsArray = Array.from(new Set(tagsArray))  
+  },
+  
+  tagsSummary: (data) => {
+    const instance = Template.instance();
+    let userInput = instance.state.get('tag') || 'halls'
+    
+    let sortedByTags = {}
+    for (let i=0; i<data.length; i++) {
+      if (!sortedByTags.hasOwnProperty(data[i].tag)) {
+        sortedByTags[data[i].tag] = []  
+      }
+      sortedByTags[data[i].tag].push({name: data[i].name,
+                                     tag: data[i].tag,
+                                     sum: data[i].sum,
+                                     createdAt: data[i].createdAt});
+    }
+    
+    let sum = sortedByTags[userInput].map( (x) => x.sum )
+    sum = sum.reduce( (sum, current ) => sumDecimals(sum,current) );
+    
+    let average = (sum/sortedByTags[userInput].length).toFixed(2)
+    return {array: sortedByTags[userInput], sum: sum, average: average}
   }
   
 });
 
+Template.Card.events({ 
+  'change #tag'(event, instance) {
+    event.preventDefault();
+    var userInput = event.target.value;
+    instance.state.set('tag', userInput)
+    
+  }
+});
+
 function sumDecimals(a,b) {
   return +(a + b).toFixed(2)
-}
+};
+
+function momentDate (dateTime) {
+  let humanizedDate = moment(dateTime).fromNow();
+  if ( moment().diff(moment(dateTime)) > 1000 * 60 * 60 * 24 * 7)
+    return moment(dateTime).format('DD MMM YYYY')
+  else 
+    return humanizedDate
+};
