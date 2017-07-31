@@ -7,7 +7,7 @@ Template.AddExpense.onCreated(function () {
 
 Template.AddExpense.helpers({
   expenses: () => { 
-    let expensesList = Expenses.find({}, { sort: {createdAt: -1}, limit: 3 })
+    let expensesList = Expenses.find({}, { sort: {createdAt: -1}, limit: 5 })
       expensesList.forEach( (item) => {
 //        item.createdAt = '123'
     } )

@@ -1,0 +1,43 @@
+<template name="ExpensesByTags">
+  <div class="row">
+    <div class="col s8 filters">
+      <h5>Filter by</h5>
+      <div>
+        <a class="waves-effect waves-light btn date">Date</a>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn sum">Sum</a>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn name">Name</a>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn author">Author</a>
+      </div>
+    </div>
+    <div class="col s4">
+      <select id="tag">
+            <option>all</option>
+          {{#each tag in tagsList expenses}} 
+            <option>{{tag}}</option>
+          {{/each}}
+      </select>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col s12">
+      <ul class="collection">
+        {{#with tagsSummary expenses}}
+          {{#each array}} 
+            {{> SingleExpense }}
+          {{/each}}
+        <li class="collection-item right total">
+          <span><strong>{{average}}</strong> in average</span><br>
+          <span><strong>{{sum}}</strong> in total</span>
+        </li>
+        {{/with}}
+      </ul>
+    </div>
+  </div>
+</template>

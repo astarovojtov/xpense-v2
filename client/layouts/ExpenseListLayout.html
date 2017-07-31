@@ -1,25 +1,6 @@
 <template name="ExpensesList">
   <h1>Expenses List</h1>
   <div class="row">
-    <div class="col s8 filters">
-      <h5>Filter by</h5>
-      <div>
-        <a class="waves-effect waves-light btn date">Date</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn tag">Tag</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn sum">Sum</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn name">Name</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn author">Author</a>
-      </div>
-    </div>
-    
     <div class="col s3 input-field search">
         <i class="material-icons prefix">search</i>
         <input id="search" type="text" />
@@ -28,8 +9,6 @@
     
   </div>  
   <div class="expenses-list">
-  {{#each expenses}}
-    {{> SingleExpense }}
-  {{/each}}
+    {{> ExpensesByTags}}
   </div>
 </template>
