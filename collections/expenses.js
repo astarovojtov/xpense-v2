@@ -59,15 +59,24 @@ ExpenseSchema = new SimpleSchema({
 });
 
 Meteor.methods({
-  'expenses.add'(text) {
-        
-        let sum = text.match(/\d+(?:[\.,]\d+)?/)[0];
-    
-        let name_tag_arr = text.split(sum);
-        let name = name_tag_arr[0].trim();
-        let tag = name_tag_arr[1].trim();
-        sum = parseFloat(sum.replace(',','.'));
-    
+  'expenses.add'(text, name, sum, tag) {
+//        let sum = text.match(/\d+(?:[\.,]\d+)?(?:[\+\-\*\/]\d+(?:[\.,]\d+)?)*/)[0];
+//        
+//        //let sum = text.match(/\d+(?:[\.,]\d+)?/)[0];
+//    
+//        let name_tag_arr = text.split(sum);
+//        let name = name_tag_arr[0].trim();
+//        let tag = name_tag_arr[1].trim();
+//        tag = tag == '' ? name : tag
+//
+//        if (sum.match(/[\+\-\*\/]/)) {
+//            sum.toString().replace(/,/g,'.')
+//            sum = parseFloat(eval(sum).toFixed(2))
+//          if (typeof(sum) !== 'number')
+//            sum = 0 
+//        } 
+//        sum = parseFloat(sum.toString().replace(',','.'));
+            
     Expenses.insert({
       text, name, sum, tag,
       author: Meteor.userId(),

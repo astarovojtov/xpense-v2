@@ -15,7 +15,7 @@
           <span class="card-title grey-text text-darken-4">Total
             <i class="material-icons right">close</i>
           </span>
-          <p>infos to reveal</p>
+          <p>The total amount you've spent this month. Calculated by summarising all spendings across current month</p>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
           <span class="card-title grey-text text-darken-4">Daily
             <i class="material-icons right">close</i>
           </span>
-          <p>infos to reveal</p>
+          <p>Average spengings a day. Calcualted as total spendings across current month diveded by passed days</p>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
           <span class="card-title grey-text text-darken-4">Highest
             <i class="material-icons right">close</i>
           </span>
-          <p>infos to reveal</p>
+          <p>The maximum single spending this month</p>
         </div>
       </div>
     </div>
@@ -64,17 +64,17 @@
       <div class="card purple darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
-            Dunno
+            Balance
             <i class="material-icons right">expand_less</i>
           </span>
-            <p class="spendings">11.29</p>
-            <p>spent on dunno</p>
+            <p class="spendings">{{balance expenses}}</p>
+            <p>Money left</p>
         </div>
         <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Dunno
+          <span class="card-title grey-text text-darken-4">Balance
             <i class="material-icons right">close</i>
           </span>
-          <p>infos to reveal</p>
+          <p>Your current balance. Calculated as your monthly income minus total spendings this month</p>
         </div>
       </div>
     </div>    
@@ -84,7 +84,7 @@
     <div class="col s12 m12 l6">
         <ul class="collection with-header">
           <li class="collection-header">
-            <h5>Most frequent spendings:</h5>
+            <h5>Total by Tags:</h5>
           </li>
           {{#each mostFrequentSpending expenses}}
               <li class="collection-item">

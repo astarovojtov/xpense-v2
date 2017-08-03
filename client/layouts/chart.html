@@ -1,48 +1,36 @@
 <template name="Chart">
   <h1>Analysis</h1>
-  <canvas id="myChart" width="400px" height="400"></canvas>
+  <div class="chart-container" style="position: relative;  width:40vw">
+    <canvas id="myChart" width="400px" height="400"></canvas>
+  </div>
   <script>
   var ctx = document.getElementById("myChart").getContext('2d');
+    //document.querySelector('#myChart').parentNode.style.width = '35vw'
   var myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'pie',
       data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: ["вода", "сиги", "проезд", "обед", "еда",
+                   "тв", "пивас", "пятница", "вкусняшки", "катя",
+                   "холлс", "мама", "ДР", "кофе", "не помню"],
           datasets: [{
-              label: '# of Votes',
-              data: [1, 7, 3, 5, 2, 3, 4, 6, 8, 1],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          },
-          { data: [1,3,5,0,9,3,8,2,4,6]  }
-                    ]
+              data: [9.21, 48.88, 7.15, 62.05, 197.73,
+                     200, 34.69, 117.61, 0.99, 0.93,
+                     5.87, 150, 212.48, 9, 5],
+               backgroundColor: ['#33691e', '#e65100', '#f57f17', '#ff6f00', '#827717',
+                                 '#0d47a1', '#01579b', '#006064', '#004d40', '#1b5e20',
+                                 '#b71c1c', '#880e4f', '#4a148c', '#311b92', '#1a237e']
+          }]
       },
       options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      min: 0,
-                      max: 10,
-                      beginAtZero:true,
-                      stepSize: 4
-                  }
-              }]
-          }
-      }
+        legend: {
+            labels: {
+                fontFamily: 'Roboto',
+                fontSize: 14,
+              // This more specific font property overrides the global property
+                fontColor: 'black'
+            }
+        }
+    }
   });
   </script>
 </template>

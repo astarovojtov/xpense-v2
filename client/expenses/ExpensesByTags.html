@@ -1,21 +1,22 @@
 <template name="ExpensesByTags">
   <div class="row">
-    <div class="col s8 filters">
-      <h5>Filter by</h5>
-      <div>
-        <a class="waves-effect waves-light btn date">Date</a>
+    <div class="col s12 l8 offset-l2">
+      <div class="col s6 filters">
+        <h5>Filter by</h5>
+        <div>
+          <a class="waves-effect waves-light btn date">Date</a>
+        </div>
+        <div>
+          <a class="waves-effect waves-light btn sum">Sum</a>
+        </div>
+        <div>
+          <a class="waves-effect waves-light btn name">Name</a>
+        </div>
+        <div>
+          <a class="waves-effect waves-light btn month">July</a>
+        </div>
       </div>
-      <div>
-        <a class="waves-effect waves-light btn sum">Sum</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn name">Name</a>
-      </div>
-      <div>
-        <a class="waves-effect waves-light btn author">Author</a>
-      </div>
-    </div>
-    <div class="col s4">
+    <div class="col s6 tag">
       <select id="tag">
             <option>all</option>
           {{#each tag in tagsList expenses}} 
@@ -24,18 +25,29 @@
       </select>
     </div>
   </div>
-  
+</div>
   <div class="row">
-    <div class="col s12">
+    <div class="col s12 l8 offset-l2">
       <ul class="collection">
         {{#with tagsSummary expenses}}
+          <li class="collection-item">
+            <div class="row total">
+              <div class="col s6 count">
+                <span><strong>{{count}}</strong> expenses</span>
+              </div>
+              <div class="col s6">
+                <span><strong>{{sum}}</strong> in total</span>
+              </div>    
+            </div>
+            <div class="row total">
+              <div class="col s12 right ">
+                <span class="new badge blue" data-badge-caption="in average">{{average}}</span>
+              </div>
+            </div>
+          </li>
           {{#each array}} 
             {{> SingleExpense }}
           {{/each}}
-        <li class="collection-item right total">
-          <span><strong>{{average}}</strong> in average</span><br>
-          <span><strong>{{sum}}</strong> in total</span>
-        </li>
         {{/with}}
       </ul>
     </div>

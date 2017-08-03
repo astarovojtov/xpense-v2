@@ -43,11 +43,26 @@ Template.SingleExpense.events({
   
   'blur .update-date-and-author'(event){
     event.preventDefault();
+    
     let unchangedDoc = Expenses.findOne(this._id);
+    let initialHours = moment(unchangedDoc.createdAt).hours() <10 ? 
+        '0' + moment(unchangedDoc.createdAt).hours() :
+        moment(unchangedDoc.createdAt).hours()
     
-    const target = event.target.parentNode.children;
-    const userDate = new Date(target.createdAt.value)
+    initialHours = initialHours < '03' ? '03' : initialHours
     
+    let initialMinutes = moment(unchangedDoc.createdAt).minutes() <10 ?
+        '0' + moment(unchangedDoc.createdAt).minutes() 
+        : moment(unchangedDoc.createdAt).minutes()
+
+    initialMinutes = initialMinutes == '00' ? '01' : initialMinutes
+    
+    let initialTime = initialHours + ':' + initialMinutes
+    
+    const target = event.target.parentNode.children;    
+
+    //Local Time Zones poses some difficulties as DB is operating UTC 
+    let userDate = new Date(target.createdAt.value + ' ' + initialTime) 
     let changedDoc = {
       createdAt: userDate == 'Invalid Date' ? unchangedDoc.createdAt : userDate,
       author: target.author.value,

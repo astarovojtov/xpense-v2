@@ -11,7 +11,11 @@ Template.Card.onCreated(function () {
 
 Template.Card.helpers({
   expenses: () => {
-    return Expenses.find({}, { sort: {createdAt: -1}}).fetch()
+    let month = moment().month() + 1;
+    month = month < 10 ? '0' + month : month
+    let firstDayOfMonth = '2017-' + month + '-01T00:00:00.000Z'
+    //return Expenses.find({}, { sort: {createdAt: -1}}).fetch()
+    return Expenses.find({ createdAt : { $gt: new Date(firstDayOfMonth) } }, { sort: {createdAt: -1}}).fetch()
   },
   
   humanizeDate: function (dateTime) {
@@ -34,7 +38,7 @@ Template.Card.helpers({
   },
   
   highestSpending: (data) => {
-    let max = -99;
+    let max = 0;
     let expense = '';
     for (let i=0; i<data.length; i++) 
       if ( data[i].sum > max ) {
@@ -45,6 +49,9 @@ Template.Card.helpers({
   },
   
   mostFrequentSpending: (data) => {
+    
+    console.time()
+    
     let maxCount = 0;
     for (let j=0; j<data.length; j++) {
       data[j].count = 0
@@ -59,7 +66,7 @@ Template.Card.helpers({
     
     let filtered = []; let i=0;
     data.forEach( (x) => {
-      if (x.count == maxCount) 
+      //if (x.count == maxCount) 
         filtered.push(x.tag)
       })
     
@@ -72,11 +79,22 @@ Template.Card.helpers({
         if (data[i].tag == filtered[j]) {
           result[j].tag = data[i].tag
           result[j].sum = sumDecimals(result[j].sum, data[i].sum)
-          result[j].count = maxCount
+          result[j].count = data[i].count
+          //result[j].count = maxCount
         }
       }
     }
+    
+    console.timeEnd()
+    
     return result
+  },
+  
+  balance: (data) => {
+    let sum = 0; 
+    for (let i=0; i<data.length; i++)
+      sum = sumDecimals(sum, data[i].sum)  
+    return (971 - sum).toFixed(2)
   }
   
 });

@@ -13,7 +13,7 @@ header
     margin: 1.4rem auto
     
 #side-nav-button
-  padding: 0 1.5rem
+  padding: 10px 1.5rem
   line-height: 2
   cursor: pointer
 div
@@ -52,9 +52,9 @@ div
   margin: 0
   div 
     font-size: 0.8rem
-    text-align: right
+    text-align: left
     color: grey
-    padding-right: 10%
+    padding-right: 1%
   .update-expense
     margin: 0 auto
     text-align: center
@@ -66,9 +66,15 @@ div
       margin: 0
       width: 35%
       font-size: 1rem
-      border-bottom: 1px solid white
+      border-bottom: none
     [name="sum"]
       width:10%
+      text-align: center
+    [name="name"]
+      text-align: right
+      padding-right:20px
+    [name="tag"]
+      padding-left:20px
   form.update-expense
     input[name="name"].update,
     input[name="sum"].update,
@@ -149,8 +155,35 @@ form.update-date-and-author
       
 .expenses-list
   div.expenses:nth-child(even)
-      background-color: #e3f2fd
-      border-radius: 5px;
+    background-color: #e3f2fd
+    [name="name"],
+    [name="sum"],
+    [name="tag"],
+    [name="createdAt"],
+    [name="author"]
+      border-bottom: 1px solid #e3f2fd;
+  div.expenses:nth-child(odd)
+    [name="name"],
+    [name="sum"],
+    [name="tag"],
+    [name="createdAt"],
+    [name="author"]
+      border-bottom: 1px solid white;
+div.expenses:nth-child(even)
+  background-color: #e3f2fd
+  [name="name"],
+  [name="sum"],
+  [name="tag"],
+  [name="createdAt"],
+  [name="author"]
+    border-bottom: 1px solid #e3f2fd;
+div.expenses:nth-child(odd)
+  [name="name"],
+  [name="sum"],
+  [name="tag"],
+  [name="createdAt"],
+  [name="author"]
+    border-bottom: 1px solid white;
 .search
   .material-icons
     line-height: 2
@@ -175,7 +208,25 @@ form.update-date-and-author
     &:active
       border-bottom: 2px solid #0074d9
 
-.total 
+.row.total
+  margin-bottom:5px;
+  font-size: 1rem
+  color: dimgray
+  text-align: right
+  .count
+    text-align:left
+.total
+  width:100%
   span
     strong
       font-size: 1.3rem
+  
+.row
+  .col
+    .tag
+      padding-top:30px
+    select
+      border: none
+      border-bottom: 1px solid black
+      &:focus
+        outline: none
