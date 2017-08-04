@@ -12,18 +12,23 @@
         <div>
           <a class="waves-effect waves-light btn name">Name</a>
         </div>
-        <div>
-          <a class="waves-effect waves-light btn month">July</a>
-        </div>
       </div>
-    <div class="col s6 tag">
-      <select id="tag">
+       <div class="col s3 tag">
+        <select id="month">
+            {{#each month in monthList expenses}} 
+              <option>{{month}}</option>
+            {{/each}}
+        </select>
+      </div>
+      <div class="col s3 tag">
+        <select id="tag">
             <option>all</option>
-          {{#each tag in tagsList expenses}} 
+            {{#each tag in tagsList expenses}} 
             <option>{{tag}}</option>
-          {{/each}}
-      </select>
-    </div>
+            {{/each}}
+        </select>
+      </div>
+   
   </div>
 </div>
   <div class="row">

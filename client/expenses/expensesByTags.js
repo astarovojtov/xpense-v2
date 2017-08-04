@@ -25,13 +25,16 @@ Template.ExpensesByTags.helpers({
     } else if (instance.state.get('sortBySum')) {
       let data = Expenses.find({}, {sort: {sum: 1} }).fetch();  
       return data.sort( (a, b) => a.sum - b.sum)
-    } else if ( instance.state.get('month') == 'Jul' ) {
+    } else if ( instance.state.get('month') ) {
       
-      let month = moment().month()-1;
+      
+      let month = moment().month(instance.state.get('month')).format('M')-1 
+//Luckily moment().month('Current') returns current month number 
+//it works like moment().month() returning current month number       
+//so there is no need to do anything with it
       let firstDay = new Date( daysRange(month).firstDay )
       let lastDay = new Date( daysRange(month).lastDay )
-      
-
+  
       return Expenses.find({ createdAt : { $gt: firstDay, $lt: lastDay } }, 
                            { sort: {createdAt: -1}}).fetch()
     
@@ -41,7 +44,6 @@ Template.ExpensesByTags.helpers({
       
       return Expenses.find({ createdAt : { $gt: firstDay} }, 
                            { sort: {createdAt: -1}}).fetch()
-      //return Expenses.find({}).fetch();
     }
   },
   
@@ -52,9 +54,27 @@ Template.ExpensesByTags.helpers({
   tagsList: (data) => {
    
     let tagsArray = []
-    data.forEach( (x) => tagsArray.push(x.tag) )
+    data.forEach( (x) => tagsArray.push( x.tag.toLowerCase() ))
     
     return tagsArray = Array.from(new Set(tagsArray))  
+  },
+//---------------------------------
+//  tagsList and monthList are implemented differently. 
+//  The First one takes data from DB query that has already been made
+//  Not sure if this method is not making it's own query to DB as data
+//  specified from Blaze template as {{#each tag in tagList expenses}}
+//  Anyways
+//  The Second one makes it's own query to return just months from DB
+//---------------------------------
+  monthList: () => {
+
+      let data = Expenses.find({}, {fields: {createdAt:1} }).fetch()
+            
+      let allMonthsInDB = data.map( (x) => moment( x.createdAt ).format('MMMM') )
+      
+      allMonthsInDB = Array.from(new Set(allMonthsInDB)).reverse()
+      return allMonthsInDB
+
   },
   
   tagsSummary: (data) => {
@@ -67,18 +87,21 @@ Template.ExpensesByTags.helpers({
     } else {
       
       for (let i=0; i<data.length; i++) {
-        if (!sortedByTags.hasOwnProperty(data[i].tag)) {
-          sortedByTags[data[i].tag] = []  
+        let tags = []
+        tags[i] = data[i].tag.toLowerCase();
+        
+        if (!sortedByTags.hasOwnProperty(tags[i])) {
+          sortedByTags[tags[i]] = []  
         }
-        sortedByTags[data[i].tag].push({_id: data[i]._id,
-                                        name: data[i].name,
-                                        tag: data[i].tag,
-                                        sum: data[i].sum,
-                                        createdAt: data[i].createdAt,
-                                        text: data[i].text,
-                                        author: data[i].author,
-                                        lastUpdatedAt: data[i].lastUpdatedAt
-                                       });
+        sortedByTags[tags[i]].push({_id: data[i]._id,
+                                   name: data[i].name,
+                                   tag: data[i].tag,
+                                   sum: data[i].sum,
+                                   createdAt: data[i].createdAt,
+                                   text: data[i].text,
+                                   author: data[i].author,
+                                   lastUpdatedAt: data[i].lastUpdatedAt
+                                 });
       }
       
     } 
@@ -105,14 +128,19 @@ Template.ExpensesByTags.events({
   
   'change #tag'(event, instance) {
     event.preventDefault();
-    var userInput = event.target.value;
-    instance.state.set('tag', userInput)
+    let pickedTag = event.target.value;
+    instance.state.set('tag', pickedTag)
   },
   
   'click .month'(event, instance) {
     event.preventDefault();
-    var userInput = event.target.value;
+    let userInput = event.target.value;
     instance.state.set('month', 'Jul')
+  },
+  
+  'change #month'(event, instance) {
+    let pickedMonth = event.target.value;
+    instance.state.set('month', pickedMonth)
   }
 });
 
