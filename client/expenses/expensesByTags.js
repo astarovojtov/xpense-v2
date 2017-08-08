@@ -1,4 +1,4 @@
-import { ReactiveDict } from 'meteor/reactive-dict';
+ 
 
 Template.ExpensesByTags.onCreated(function () {
   this.state = new ReactiveDict();
