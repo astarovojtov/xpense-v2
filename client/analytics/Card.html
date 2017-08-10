@@ -1,9 +1,9 @@
 <template name="Card">  
   <div class="row">
-    <div class="col s6 tag">
+    <div class="col s6 l4 tag">
       <h5 class="header blue-text text-darken-1">Spendings This Month</h5>
     </div>
-    <div class="col s3 tag change-month">
+    <div class="col s6 l3 offset-l5 tag change-month">
       <select id="month">
           {{#each month in monthList expenses}} 
             <option>{{month}}</option>
@@ -12,14 +12,15 @@
     </div>
   </div>
   <div class="row">
-    <div class="col s6 m5 offset-m1 l3">
+{{#with totalSpendings expenses}}
+    <div class="col s12 m6 l3">
       <div class="card blue darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
             Total
             <i class="material-icons right">expand_less</i>
           </span>
-          <p class="spendings">{{totalSpendings expenses}}</p>
+          <p class="spendings">{{overall}}</p>
           <p>spent this month</p>
         </div>
         <div class="card-reveal">
@@ -30,15 +31,15 @@
         </div>
       </div>
     </div>
-    
-    <div class="col s6 m5 l3">
+
+    <div class="col s12 m6 l3">
       <div class="card green darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
             Daily
             <i class="material-icons right">expand_less</i>
           </span>
-          <p class="spendings">{{dailySpendings expenses}}</p>
+          <p class="spendings">{{daily}}</p>
           <p>daily spendings</p>
         </div>
         <div class="card-reveal">
@@ -49,8 +50,27 @@
         </div>
       </div>
     </div>
-
-    <div class="col s6 m5 offset-m1 l3">
+    
+    <div class="col s12 m6 l3">
+      <div class="card purple darken-3">
+        <div class="card-content white-text">
+          <span class="card-title activator">
+            Balance
+            <i class="material-icons right">expand_less</i>
+          </span>
+            <p class="spendings">{{balance}}</p>
+            <p>Money left</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Balance
+            <i class="material-icons right">close</i>
+          </span>
+          <p>Your current balance. Calculated as your monthly income minus total spendings this month</p>
+        </div>
+      </div>
+    </div>  
+{{/with}}
+    <div class="col s12 m6 l3">
       <div class="card red darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
@@ -71,27 +91,9 @@
       </div>
     </div>
     
-    <div class="col s6 m5 l3">
-      <div class="card purple darken-3">
-        <div class="card-content white-text">
-          <span class="card-title activator">
-            Balance
-            <i class="material-icons right">expand_less</i>
-          </span>
-            <p class="spendings">{{balance expenses}}</p>
-            <p>Money left</p>
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Balance
-            <i class="material-icons right">close</i>
-          </span>
-          <p>Your current balance. Calculated as your monthly income minus total spendings this month</p>
-        </div>
-      </div>
-    </div>    
-  </div>
-  <div class="row">
-    <div class="col s6 m5 l3">
+  
+
+    <div class="col s12 m6 l3">
       <div class="card orange darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
@@ -109,7 +111,7 @@
         </div>
       </div>
     </div>
-    <div class="col s6 m5 l3">
+    <div class="col s12 m6 l3">
       <div class="card grey darken-3">
         <div class="card-content white-text">
           <span class="card-title activator">
@@ -127,30 +129,15 @@
         </div>
       </div>
     </div>     
-  </div>
+   </div> 
   <div class="row">
-    <div class="col s12 m12 l6">
-      <ul class="collection with-header">
-        <li class="collection-header">
-          <h5>Total by Tags:</h5>
-        </li>
-        {{#each mostFrequentSpending expenses}}
-            <li class="collection-item">
-            {{tag}} 
-              <span class="badge" data-badge-caption="total">
-                {{sum}}
-              </span>
-              <span class="badge" data-badge-caption="times">
-                {{count}}
-              </span>
-            </li>
-        {{/each}}
-      </ul>
+    <div class="col s12 m12 l6 total-by-tags">
+      {{>TotalByTags expenses}}
     </div>
-    <div class="col s6">    
+    <div class="col s12 m12 l6">    
       <div class="chart-container" width="40vw">
         <canvas id="myChart"></canvas>
-        {{chart expenses}}
+        {{>Chart expenses}}
       </div>
     </div>
   </div>

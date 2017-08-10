@@ -1,37 +1,38 @@
 <template name="ExpensesByTags">
   <div class="row">
-    <div class="col s12 l8 offset-l2">
-      <div class="col s6 filters">
-        <h5>Filter by</h5>
-        <div>
-          <a class="waves-effect waves-light btn date">Date</a>
-        </div>
-        <div>
-          <a class="waves-effect waves-light btn sum">Sum</a>
-        </div>
-        <div>
-          <a class="waves-effect waves-light btn name">Name</a>
-        </div>
+    <div class="col s4 l2 offset-l2">
+      <h5>Filter by</h5>
+    </div>
+    <div class="col s8 l2 filters">
+      <div>
+        <a class="waves-effect waves-light btn date">Date</a>
       </div>
-       <div class="col s3 tag">
-        <select id="month">
-            {{#each month in monthList expenses}} 
-              <option>{{month}}</option>
-            {{/each}}
-        </select>
+      <div>
+        <a class="waves-effect waves-light btn sum">Sum</a>
       </div>
-      <div class="col s3 tag">
-        <select id="tag">
-            <option>all</option>
-            {{#each tag in tagsList expenses}} 
-            <option>{{tag}}</option>
-            {{/each}}
-        </select>
+      <div>
+        <a class="waves-effect waves-light btn name">Name</a>
       </div>
-   
+    </div>
+  
+     <div class="col s6 l2 month">
+      <select id="month">
+          {{#each month in monthList expenses}} 
+            <option>{{month}}</option>
+          {{/each}}
+      </select>
+    </div>
+    <div class="col s6 l2 tag">
+      <select id="tag">
+          <option>all</option>
+          {{#each tag in tagsList expenses}} 
+          <option>{{tag}}</option>
+          {{/each}}
+      </select>
+    </div>
   </div>
-</div>
-  <div class="row">
+  
+  <div class="row no-padding">
     <div class="col s12 l8 offset-l2">
       <ul class="collection">
         {{#with tagsSummary expenses}}
@@ -57,4 +58,5 @@
       </ul>
     </div>
   </div>
+  <div id='ruler'></div>
 </template>

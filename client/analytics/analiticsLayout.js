@@ -1,3 +1,5 @@
+import { Lib } from '../lib/lib.js'
+
 Template.AnalyticsLayout.onCreated(function () {
   var self = this;
   self.autorun( function() {
@@ -24,8 +26,8 @@ Template.AnalyticsLayout.helpers({
         if (data[i].tag == filtered[j]) {
           result[j].tag = data[i].tag
           tags[j] = data[i].tag
-          result[j].sum = sumDecimals(result[j].sum, data[i].sum)
-          sums[j] = sumDecimals(result[j].sum, data[i].sum)
+          result[j].sum = Lib.sumDecimals(result[j].sum, data[i].sum)
+          sums[j] = Lib.sumDecimals(result[j].sum, data[i].sum)
         }
       }
     }
@@ -91,7 +93,7 @@ Template.AnalyticsLayout.helpers({
       for (let i=0; i<data.length; i++) {
         if (data[i].tag == filtered[j]) {
           result[j].tag = data[i].tag
-          result[j].sum = sumDecimals(result[j].sum, data[i].sum)
+          result[j].sum = Lib.sumDecimals(result[j].sum, data[i].sum)
           result[j].count = data[i].count
           //result[j].count = maxCount
         }
@@ -104,7 +106,3 @@ Template.AnalyticsLayout.helpers({
   },
   
 });
-
-function sumDecimals(a,b) {
-  return +(a + b).toFixed(2)
-};

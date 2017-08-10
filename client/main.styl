@@ -59,7 +59,7 @@ div
     margin: 0 auto
     text-align: center
     display: inline-block
-    width:90%
+    width:85%
     input
       margin-right: 1rem
       height: 2rem
@@ -68,7 +68,7 @@ div
       font-size: 1rem
       border-bottom: none
     [name="sum"]
-      width:10%
+      width:20%
       text-align: center
     [name="name"]
       text-align: right
@@ -82,7 +82,7 @@ div
     input[name="tag"].update
       &:focus 
         border-bottom: 1px solid blue
-        box-shadow: 0 1px 0 0 blue
+        box-shadow: none
 form.update-date-and-author
   input[name="createdAt"].edit-date,
   input[name="author"].edit-author
@@ -92,10 +92,10 @@ form.update-date-and-author
     margin: 0 0 10px 0
     min-width: 10px
     max-width: 200px
-    border-bottom: 1px solid white
+    border-bottom: 1px solid transparent
     &:focus 
       border-bottom: 1px solid blue
-      box-shadow: 0 1px 0 0 blue
+      box-shadow: none
 #search    
   &:focus 
     border-bottom: 1px solid blue
@@ -111,7 +111,7 @@ form.update-date-and-author
 #new-expense-text
   &:focus
     border-bottom: 1px solid blue
-    box-shadow: 0 1px 0 0 blue
+    box-shadow: none
   &:focus + label
     color: blue
 .add-expense
@@ -234,3 +234,119 @@ div.expenses:nth-child(odd)
 #tag
   option
     text-transform: capitalize
+#ruler
+  display:inline-block
+  font-family: 'Roboto', sans-serif
+  font-size: 12px
+//
+//@media only screen and (min-width: 361px) and (max-width: 800px)
+//  #side-nav-button
+//    line-height: 1.4
+//  i.material-icons
+//    font-size: 30px
+//  .new-expense-container
+//    margin: 6% 3%
+//  .add-expense
+//    .input-field
+//      label
+//        font-size: 1.3rem
+//        line-height: 0.5
+//    .btn
+//      font-size: 1.2rem
+//  .expenses
+//    .update-expense
+//      input.update
+//        font-size: 1.3rem
+//        
+//  form.update-date-and-author 
+//    input[name="createdAt"].edit-date,
+//    input[name="author"].edit-author
+//      font-size: 1.05rem
+//    span
+//      font-size: 1.05rem
+
+        
+@media only screen and (min-width: 300px)
+  .row
+    main.col.s12
+      padding: 0
+  #side-nav-button
+    line-height: 1.6
+  i.material-icons
+    font-size: 24px
+  .new-expense-container
+    margin: 10% 10% 15% 10%
+  .add-expense
+    .input-field
+      label
+        font-size: 1rem
+        line-height: 1
+    .btn
+      font-size: 1rem
+  .expenses
+    margin: 2% 0;
+    padding: 2%;
+    .update-expense
+      input.update
+        font-size: 1.1rem
+      input[name="name"]
+        padding-right:0
+      input[name="tag"]
+        padding-left:0
+        
+  form.update-date-and-author
+    margin-left: 1rem
+    input.edit-author
+      padding: 0 0.2rem
+    input[name="createdAt"].edit-date,
+    input[name="author"].edit-author
+      font-size: 0.9rem
+    span
+      font-size: 0.9rem
+  .page-footer
+    h5
+      font-size: 1.4rem
+  h1
+    display:none
+  .search
+    display:none
+  .filters
+    line-height: 3
+  
+  .expenses-list
+    .no-padding
+      ul.collection
+        border: none
+        border-radius: 0
+        -webkit-appearance: none
+    .row
+      .month,
+      .tag
+        padding-top: 0
+    .row.no-padding
+      padding: 0
+      .col
+        padding: 0
+  #ruler
+    font-size: 0.9rem
+    color: transparent
+  .col.total-by-tags
+    padding:0
+    ul.collection
+      border: none
+      border-radius: 0
+      li.collection-item
+        padding: 10px 0
+
+@media only screen and (min-width: 993px)
+  .filters
+    line-height: 4
+    margin: 0
+  .expenses-list
+    .no-padding
+      div
+        ul.collection
+          border: 1px solid #e0e0e0
+          border-radius: 2px
+          li.collection-item
+            padding: 10px 20px

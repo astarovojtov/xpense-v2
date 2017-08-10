@@ -7,8 +7,6 @@ Template.ExpensesList.onCreated(function () {
   self.autorun( function() {
     self.subscribe('expenses');
   })
-  
-
 });
 
 Template.ExpensesList.helpers({

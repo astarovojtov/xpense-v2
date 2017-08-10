@@ -1,46 +1,46 @@
- 
+import { Lib } from '../lib/lib.js';
 
 Template.ExpensesByTags.onCreated(function () {
+  let ruler = document.getElementById('ruler')
   this.state = new ReactiveDict();
   
   var self = this;
   self.autorun( function() {
     self.subscribe('expenses');
-  })
+  });      
 });
 
-Template.ExpensesByTags.helpers({
-  expenses: () => {
-    
-//    let month = moment().month() + 1;
-//    month = month < 10 ? '0' + month : month
-//    
-//    let firstDayOfMonth = '2017-' + month + '-01T00:00:00.000Z'
-    //return Expenses.find({}, { sort: {createdAt: -1}}).fetch()
+Template.ExpensesByTags.onRendered( function () {
+  
+})
 
+Template.ExpensesByTags.helpers({
+  
+  expenses: () => {
     const instance = Template.instance();
     
-    if (instance.state.get('sortByDate')) {
-      return Expenses.find({}, {sort: {createdAt: -1} }).fetch();  
-    } else if (instance.state.get('sortBySum')) {
-      let data = Expenses.find({}, {sort: {sum: 1} }).fetch();  
-      return data.sort( (a, b) => a.sum - b.sum)
-    } else if ( instance.state.get('month') ) {
-      
+//    if (instance.state.get('sortByDate')) {
+//      return Expenses.find({}, {sort: {createdAt: -1} }).fetch();  
+//    } else if (instance.state.get('sortBySum')) {
+//      let data = Expenses.find({}, {sort: {sum: 1} }).fetch();  
+//      return data.sort( (a, b) => a.sum - b.sum)
+    //} else 
+    if ( instance.state.get('month') ) {
       
       let month = moment().month(instance.state.get('month')).format('M')-1 
 //Luckily moment().month('Current') returns current month number 
 //it works like moment().month() returning current month number       
 //so there is no need to do anything with it
-      let firstDay = new Date( daysRange(month).firstDay )
-      let lastDay = new Date( daysRange(month).lastDay )
+      let firstDay = new Date( Lib.daysRange(month).firstDay )
+      let lastDay = new Date( Lib.daysRange(month).lastDay )
   
-      return Expenses.find({ createdAt : { $gt: firstDay, $lt: lastDay } }, 
+      data = Expenses.find({ createdAt : { $gt: firstDay, $lt: lastDay } }, 
                            { sort: {createdAt: -1}}).fetch()
-    
+      return data
+          
     } else {
       let month = moment().month();
-      let firstDay = new Date( daysRange(month).firstDay )
+      let firstDay = new Date( Lib.daysRange(month).firstDay )
       
       return Expenses.find({ createdAt : { $gt: firstDay} }, 
                            { sort: {createdAt: -1}}).fetch()
@@ -107,7 +107,7 @@ Template.ExpensesByTags.helpers({
     } 
     
     let sum = sortedByTags[userInput].map( (x) => x.sum )
-    sum = sum.reduce( (sum, current ) => sumDecimals(sum,current) );
+    sum = sum.reduce( (sum, current ) => Lib.sumDecimals(sum,current), 0 );
     
     let count = sortedByTags[userInput].length;
     
@@ -132,37 +132,8 @@ Template.ExpensesByTags.events({
     instance.state.set('tag', pickedTag)
   },
   
-  'click .month'(event, instance) {
-    event.preventDefault();
-    let userInput = event.target.value;
-    instance.state.set('month', 'Jul')
-  },
-  
   'change #month'(event, instance) {
     let pickedMonth = event.target.value;
     instance.state.set('month', pickedMonth)
   }
 });
-
-function sumDecimals(a,b) {
-  return +(a + b).toFixed(2)
-};
-
-function daysRange(month) {
-  //let month = moment().month() + 1;
-
-  
-  let date = new Date();
-  let y = date.getFullYear();
-  let m = month;
-  let currentMonth = m < 10 ? '0' + (m+1) : m+1;
-  let firstDay = new Date(y, m, 1);
-  let lastDay = new Date(y, m + 1, 0);
-  
-  firstDay = moment(firstDay).format('DD');
-  lastDay = moment(lastDay).format('DD');
-  
-  firstDay = '2017-' + currentMonth + '-' + firstDay + 'T00:00:00.000Z'
-  lastDay = '2017-' + currentMonth + '-' + lastDay + 'T23:59:59.000Z'
-  return { currentMonth, firstDay, lastDay }
-}
