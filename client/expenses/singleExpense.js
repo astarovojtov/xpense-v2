@@ -42,23 +42,22 @@ Template.SingleExpense.events({
     const date = Expenses.findOne(this._id).createdAt;
     target.value = moment(date).format("DD MMM YYYY");
     
-    Lib.resize(target, ruler);
+   // Lib.resize(target, ruler);
     
   },
   
-  'click .edit-author'(event) {
-    Lib.resize(event.target, ruler)
-  },
-  
+//  'click .edit-author'(event) {
+//    Lib.resize(event.target, ruler)
+//  },
+//  
   'blur .update-date-and-author'(event){
-    //event.preventDefault();
-    
+
     let unchangedDoc = Expenses.findOne(this._id);
     let initialHours = moment(unchangedDoc.createdAt).hours() <10 ? 
         '0' + moment(unchangedDoc.createdAt).hours() :
         moment(unchangedDoc.createdAt).hours()
     
-    initialHours = initialHours < '03' ? '03' : initialHours
+    initialHours = initialHours < '03' ? '03' : initialHours //timezone offset compensation
     
     let initialMinutes = moment(unchangedDoc.createdAt).minutes() <10 ?
         '0' + moment(unchangedDoc.createdAt).minutes() 
@@ -90,7 +89,7 @@ Template.SingleExpense.events({
 });
 
 Template.SingleExpense.onRendered( function () {
-  let ruler = ruler || document.getElementById('ruler')
-  this.firstNode.querySelectorAll('.resizable').forEach( (item) => Lib.resize(item, ruler))
-  
+//  let ruler = ruler || document.getElementById('ruler')
+//  this.firstNode.querySelectorAll('.resizable').forEach( (item) => Lib.resize(item, ruler))
+//  
 })
